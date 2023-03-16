@@ -1,16 +1,23 @@
-import openai from "openai";
+import { Configuration, OpenAIApi } from "openai";
 
-openai.apiKey = "your_api_key";
+const configuration = new Configuration({
+  apiKey: "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"
+});
 
-export const fetchSummary = async (url) => {
+const openai = new OpenAIApi(configuration);
+
+export const fetchSummary = async (data) => {
   try {
+    //const prompt = `${basePromptPrefix}${req.body.userInput}${tip}`;
+    const content = "Say this is a test";
     const response = await openai.Completion.create({
-      engine: "davinci-codex",
-      prompt: `Please summarize the video at the following URL: ${url}`,
-      max_tokens: 100,
-      n: 1,
-      stop: null,
-      temperature: 1,
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "user", content },
+        { role: "system", content },
+      ],
+      temperature: 0.7,
+      max_tokens: 4000,
     });
 
     if (response.choices && response.choices.length > 0) {
