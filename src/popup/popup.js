@@ -1,57 +1,33 @@
 const summarizeButton = document.getElementById('summarize');
-const loading = document.getElementById('loading');
+const loadingIndicator = document.getElementById('loading');
 const summaryElement = document.getElementById('summary');
 const errorElement = document.getElementById('error');
 
-function setLoading(loading) {
-    document.getElementById('loading').style.display = loading ? 'block' : 'none';
-    document.getElementById('summary').style.display = loading ? 'none' : 'block';
+function displayError(message) {
+  errorElement.textContent = chrome.i18n.getMessage('error') + ' ' + message;
+  errorElement.style.display = 'block';
 }
 
-document.getElementById('summarize').addEventListener('click', async () => {
-    setLoading(true);
-    const videoInfo = await getVideoInfo(); // This function should be implemented in contentScript.js and get the video information from the current page
-    const summaryElement = document.getElementById('summary');
-  
-    chrome.runtime.sendMessage({ action: 'summarize', data: videoInfo }, (response) => {
-      setLoading(false);
-      if (response.error) {
-        summaryElement.innerHTML = `<span class="error">${response.error}</span>`;
-      } else {
-        summaryElement.innerHTML = response.summary || 'No summary available.';
-      }
-    });
-});
-
-summarizeButton.addEventListener('click', () => {
-  summarizeButton.disabled = true;
-  loading.style.display = 'block';
+summarizeButton.addEventListener('click', async () => {
+  loadingIndicator.style.display = 'block';
+  errorElement.style.display = 'none';
   summaryElement.textContent = '';
-  errorElement.textContent = '';
 
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const activeTab = tabs[0];
+  try {
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    const videoUrl = tabs[0].url;
 
-    chrome.tabs.sendMessage(activeTab.id, { action: 'getVideoInfo' }, (videoInfo) => {
-      chrome.storage.sync.get(['api_key', 'max_tokens'], (data) => {
-        const apiKey = data.api_key || 'your_default_api_key';
-        const maxTokens = data.max_tokens || 150;
-
-        chrome.runtime.sendMessage(
-          { action: 'summarizeVideo', videoInfo: { ...videoInfo, apiKey }, maxTokens },
-          (response) => {
-            summarizeButton.disabled = false;
-            loading.style.display = 'none';
-
-            if (response.error) {
-              errorElement.textContent = `Error: ${response.error}`;
-            } else {
-              summaryElement.textContent = response.summary;
-            }
-          }
-        );
-      });
+    const { api_key, max_tokens } = await new Promise((resolve) => {
+      chrome.storage.sync.get(['api_key', 'max_tokens'], resolve);
     });
-  });
+
+    const summary = await summarizeVideo(videoUrl, max_tokens, api_key);
+    summaryElement.textContent = summary;
+  } catch (error) {
+    displayError(error.message);
+  } finally {
+    loadingIndicator.style.display = 'none';
+  }
 });
+
 localizeHtmlPage();
