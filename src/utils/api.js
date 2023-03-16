@@ -1,4 +1,4 @@
-const API_URL = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+const API_URL = 'https://api.openai.com/v1/chat/completions';
 
 async function fetchSummary(apiKey, prompt, maxTokens) {
   const response = await fetch(API_URL, {
@@ -8,6 +8,7 @@ async function fetchSummary(apiKey, prompt, maxTokens) {
       'Authorization': `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
+      model: "gpt-3.5-turbo",
       prompt: prompt,
       max_tokens: maxTokens,
       n: 1,

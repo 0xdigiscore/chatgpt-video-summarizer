@@ -42,11 +42,9 @@ async function summarizeVideo(videoUrl, max_tokens, apiKey) {
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        prompt: prompt,
-        max_tokens: max_tokens,
-        n: 1,
-        stop: null,
-        temperature: 0.5,
+        model: "gpt-3.5-turbo",
+        messages: [{"role": "user", "content": "Say this is a test!"}],
+        temperature: 0.7
       }),
     });
 
