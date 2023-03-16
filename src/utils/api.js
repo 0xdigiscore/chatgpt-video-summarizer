@@ -1,28 +1,25 @@
-const API_URL = 'https://api.openai.com/v1/chat/completions';
+import openai from "openai";
 
-async function fetchSummary(apiKey, prompt, maxTokens) {
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      prompt: prompt,
-      max_tokens: maxTokens,
+openai.apiKey = "your_api_key";
+
+export const fetchSummary = async (url) => {
+  try {
+    const response = await openai.Completion.create({
+      engine: "davinci-codex",
+      prompt: `Please summarize the video at the following URL: ${url}`,
+      max_tokens: 100,
       n: 1,
       stop: null,
-      temperature: 0.7,
-    }),
-  });
+      temperature: 1,
+    });
 
-  const data = await response.json();
-  if (response.status !== 200) {
-    throw new Error(data.error.message);
+    if (response.choices && response.choices.length > 0) {
+      return response.choices[0].text.trim();
+    } else {
+      throw new Error("No summary found.");
+    }
+  } catch (error) {
+    console.error("Error fetching summary:", error);
+    throw error;
   }
-
-  return data.choices[0].text.trim();
-}
-
-export { fetchSummary };
+};

@@ -1,35 +1,36 @@
 {
   "manifest_version": 3,
-  "name": "Video Summarizer-YouTube、B站视频摘要",
-  "version": "1.0",
-  "default_locale": "en",
-  "description": "Summarize YouTube and Bilibili videos using ChatGPT API.",
-  "background": {
-    "service_worker": "src/background/background.js",
-    "type": "module"
+  "name": "Video Summarizer",
+  "version": "1.0.0",
+  "description": "A Chrome extension that generates a summary of video content from YouTube and Bilibili.",
+  "action": {
+    "default_popup": "dist/index.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
   },
-  "permissions": [
-    "activeTab",
-    "storage"
-  ],
-  "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://api.openai.com;"
+  "permissions": ["activeTab", "storage"],
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "options_page": "dist/index.html",
+  "background": {
+    "service_worker": "dist/background.js"
   },
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*", "*://*.bilibili.com/*"],
-      "js": ["src/contentScript/contentScript.js"]
+      "matches": ["https://www.youtube.com/*", "https://www.bilibili.com/*"],
+      "js": ["dist/contentScript.js"]
     }
   ],
-  "icons": {
-    "48": "assets/icons/icon.png",
-    "128": "assets/icons/icon.png"
-  },
-  "action": {
-    "default_icon": "assets/icons/icon.png",
-    "default_popup": "src/popup/popup.html"
-  },
-  "options_page": "src/options/options.html"
-
+  "web_accessible_resources": [
+    {
+      "resources": ["dist/contentScript.js"],
+      "matches": ["https://www.youtube.com/*", "https://www.bilibili.com/*"]
+    }
+  ]
 }
-

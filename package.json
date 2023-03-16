@@ -1,0 +1,22 @@
+{
+  "name": "chatgpt-video-summarizer",
+  "version": "1.0.0",
+  "description": "This Chrome extension provides a summary of video content on YouTube and Bilibili using OpenAI's ChatGPT API. The extension fetches video information, such as title and description, and sends a request to the ChatGPT API to generate a summary. Users can view the summary in a popup window, making it easier to understand the content of a video without watching it in its entirety.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xhelloweb3/chatgpt-video-summarizer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0xhelloweb3/chatgpt-video-summarizer/issues"
+  },
+  "homepage": "https://github.com/0xhelloweb3/chatgpt-video-summarizer#readme",
+  "dependencies": {
+    "openapi": "^1.0.1"
+  }
+}
