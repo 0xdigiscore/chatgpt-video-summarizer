@@ -1,0 +1,27 @@
+{
+    "appName": {
+      "message": "视频总结器"
+    },
+    "summarize": {
+      "message": "总结视频"
+    },
+    "loading": {
+      "message": "加载中..."
+    },
+    "error": {
+      "message": "错误："
+    },
+    "optionsTitle": {
+      "message": "视频总结器选项"
+    },
+    "maxTokensLabel": {
+      "message": "最大令牌数："
+    },
+    "apiKeyLabel": {
+      "message": "API密钥："
+    },
+    "save": {
+      "message": "保存"
+    }
+}
+  

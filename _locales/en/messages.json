@@ -1,0 +1,27 @@
+{
+    "appName": {
+      "message": "Video Summarizer"
+    },
+    "summarize": {
+      "message": "Summarize Video"
+    },
+    "loading": {
+      "message": "Loading..."
+    },
+    "error": {
+      "message": "Error:"
+    },
+    "optionsTitle": {
+      "message": "Video Summarizer Options"
+    },
+    "maxTokensLabel": {
+      "message": "Max Tokens:"
+    },
+    "apiKeyLabel": {
+      "message": "API Key:"
+    },
+    "save": {
+      "message": "Save"
+    }
+}
+  
