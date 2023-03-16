@@ -8,8 +8,8 @@ document.getElementById('save').addEventListener('click', () => {
 });
 
 chrome.storage.sync.get(['api_key', 'max_tokens'], (data) => {
-  document.getElementById('max_tokens').value = data.max_tokens || 150;
-  document.getElementById('api_key').value = data.api_key || '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';
+  document.getElementById('max_tokens').value = data.max_tokens || 40000;
+  document.getElementById('api_key').value = data.api_key || '';
 });
 
 localizeHtmlPage();

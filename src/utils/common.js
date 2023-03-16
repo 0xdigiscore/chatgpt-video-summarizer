@@ -1,29 +1,48 @@
-function getPlatform() {
-    if (window.location.hostname.includes('youtube.com')) {
-      return 'YouTube';
-    } else if (window.location.hostname.includes('bilibili.com')) {
-      return 'Bilibili';
-    }
-    return null;
-  }
-  
-function escapeHtml(unsafe) {
-  return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+// src/utils/common.js
+
+function getLocalizedString(key) {
+  return chrome.i18n.getMessage(key);
+}
+
+function getApiKey() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(['api_key'], (result) => {
+      if (result.api_key) {
+        resolve(result.api_key);
+      } else {
+        // Use a default API key if none is provided
+        resolve('YOUR_DEFAULT_API_KEY');
+      }
+    });
+  });
 }
 
 function localizeHtmlPage() {
-  const objects = document.querySelectorAll('[data-i18n]');
-  for (let i = 0; i < objects.length; i++) {
-    const obj = objects[i];
-    const key = obj.getAttribute('data-i18n');
-    const message = chrome.i18n.getMessage(key);
-    if (obj.tagName === 'INPUT') {
-      obj.setAttribute('placeholder', message);
-    } else {
-      obj.textContent = message;
+  const objects = document.getElementsByTagName('html');
+  for (let j = 0; j < objects.length; j++) {
+    const obj = objects[j];
+    const valStrH = obj.innerHTML.toString();
+    const valNewH = valStrH.replace(/__MSG_(\w+)__/g, (match, v1) => {
+      return v1 ? chrome.i18n.getMessage(v1) : '';
+    });
+
+    if (valNewH != valStrH) {
+      obj.innerHTML = valNewH;
     }
   }
 }
-  
-export { getPlatform, escapeHtml, localizeHtmlPage };
-  
+
+function getPlatform() {
+  return new Promise((resolve) => {
+    chrome.runtime.getPlatformInfo((platformInfo) => {
+      resolve(platformInfo);
+    });
+  });
+}
+
+module.exports = {
+  getLocalizedString,
+  getApiKey,
+  localizeHtmlPage,
+  getPlatform
+};
