@@ -2,6 +2,7 @@
   "manifest_version": 3,
   "name": "Video Summarizer",
   "version": "1.0.0",
+  "default_locale": "en",
   "description": "A Chrome extension that generates a summary of video content from YouTube and Bilibili.",
   "action": {
     "default_popup": "dist/index.html",

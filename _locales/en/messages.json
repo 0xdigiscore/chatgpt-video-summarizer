@@ -5,8 +5,11 @@
     "summarize": {
       "message": "Summarize Video"
     },
-    "loading": {
-      "message": "Loading..."
+    "popup_button": {
+      "message": "Summarize"
+    },
+    "popup_loading": {
+      "message": "loading"
     },
     "error": {
       "message": "Error:"

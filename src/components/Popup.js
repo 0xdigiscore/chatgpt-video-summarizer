@@ -12,6 +12,7 @@ const Popup = () => {
 
   const summarizeVideo = async () => {
     setLoading(true);
+    console.log(111111111111)
     try {
       const activeTab = await new Promise((resolve) =>
         chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) =>

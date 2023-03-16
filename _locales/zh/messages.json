@@ -5,6 +5,12 @@
     "summarize": {
       "message": "总结视频"
     },
+    "popup_button": {
+      "message": "总结"
+    },
+    "popup_loading": {
+      "message": "loading"
+    },
     "loading": {
       "message": "加载中..."
     },

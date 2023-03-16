@@ -19,6 +19,7 @@ export const fetchSummary = async (data) => {
       temperature: 0.7,
       max_tokens: 4000,
     });
+    console.log(JSON.stringify(response))
 
     if (response.choices && response.choices.length > 0) {
       return response.choices[0].text.trim();
