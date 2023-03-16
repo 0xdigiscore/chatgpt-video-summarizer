@@ -2,12 +2,17 @@
   "manifest_version": 2,
   "name": "Video Summarizer",
   "version": "1.0",
+  "default_locale": "en",
   "description": "Summarize YouTube and Bilibili videos using ChatGPT API.",
-  "permissions": ["activeTab"],
   "background": {
     "scripts": ["src/background/background.js"],
     "persistent": false
   },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "https://api.openai.com/v1/engines/davinci-codex/completions"
+  ],
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/*", "*://*.bilibili.com/*"],
@@ -16,9 +21,9 @@
   ],
   "browser_action": {
     "default_icon": {
-      "16": "assets/icons/icon16.png",
-      "48": "assets/icons/icon48.png",
-      "128": "assets/icons/icon128.png"
+      "16": "assets/icons/icon.png",
+      "48": "assets/icons/icon.png",
+      "128": "assets/icons/icon.png"
     },
     "default_popup": "src/popup/popup.html"
   },
