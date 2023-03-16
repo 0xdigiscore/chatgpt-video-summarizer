@@ -1,4 +1,4 @@
-const { getPlatform} = require('../utils/common.js');
+import { getPlatform } from '../utils/common.js';
 
 function getVideoInfo() {
   const platform = getPlatform();

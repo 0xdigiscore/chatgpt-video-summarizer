@@ -1,4 +1,5 @@
-const { fetchSummary} = require('../utils/api.js');
+import { fetchSummary } from '../utils/api.js';
+
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'summarizeVideo') {

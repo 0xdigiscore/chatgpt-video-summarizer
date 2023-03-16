@@ -12,4 +12,5 @@ chrome.storage.sync.get(['api_key', 'max_tokens'], (data) => {
   document.getElementById('api_key').value = data.api_key || '';
 });
 
-localizeHtmlPage();
+window.CommonUtils.localizeHtmlPage();
+

@@ -30,4 +30,36 @@ summarizeButton.addEventListener('click', async () => {
   }
 });
 
-localizeHtmlPage();
+
+async function summarizeVideo(videoUrl, max_tokens, apiKey) {
+  try {
+    const prompt = `Summarize the content of this video: ${videoUrl}`;
+
+    const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+        max_tokens: max_tokens,
+        n: 1,
+        stop: null,
+        temperature: 0.5,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error('Error calling ChatGPT API:', response.statusText);
+      return null;
+    }
+
+    const data = await response.json();
+    const summary = data.choices && data.choices.length > 0 ? data.choices[0].text.trim() : null;
+    return summary;
+  } catch (error) {
+    console.error('Error calling ChatGPT API:', error);
+    return null;
+  }
+}

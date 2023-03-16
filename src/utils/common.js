@@ -40,7 +40,7 @@ function getPlatform() {
   });
 }
 
-module.exports = {
+window.CommonUtils = {
   getLocalizedString,
   getApiKey,
   localizeHtmlPage,
