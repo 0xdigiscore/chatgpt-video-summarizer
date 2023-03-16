@@ -6,7 +6,8 @@
   "description": "Summarize YouTube and Bilibili videos using ChatGPT API.",
   "background": {
     "scripts": ["src/background/background.js"],
-    "persistent": false
+    "persistent": false,
+    "type": "module"
   },
   "permissions": [
     "activeTab",
