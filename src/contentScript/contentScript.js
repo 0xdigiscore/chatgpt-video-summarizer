@@ -1,7 +1,7 @@
-import { getPlatform } from '../utils/common.js';
+
 
 function getVideoInfo() {
-  const platform = getPlatform();
+  const platform = window.CommonUtils.getPlatform();
   let title = '';
   let description = '';
 

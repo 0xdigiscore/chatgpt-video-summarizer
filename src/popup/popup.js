@@ -35,7 +35,7 @@ async function summarizeVideo(videoUrl, max_tokens, apiKey) {
   try {
     const prompt = `Summarize the content of this video: ${videoUrl}`;
 
-    const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
