@@ -18,5 +18,9 @@
   "homepage": "https://github.com/0xhelloweb3/chatgpt-video-summarizer#readme",
   "dependencies": {
     "openapi": "^1.0.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1"
   }
 }
